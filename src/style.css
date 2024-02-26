@@ -1,0 +1,37 @@
+.to-do{
+    border: 1px solid black;
+    display: flex;
+
+}
+.project{
+    border: 1px solid blue;
+}
+
+.to-do button{
+    border-radius: 10px;
+    background-color: aqua;
+    width: 40px;
+    height: 40px;
+}
+
+body{
+height: 100vh;
+display: grid;
+grid-template-rows: 30px auto 1fr 30px;
+}
+
+.project{
+    display: grid;
+    grid-template-columns: 1fr auto;
+}
+.project-container{
+    grid-column: 1/-1;
+}
+
+.to-do:hover{
+    background-color: red;
+}
+
+.btn-container{
+    visibility: hidden;
+}
