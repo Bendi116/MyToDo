@@ -24,22 +24,17 @@ export function showProjectDialog(){
 
 }
 export function showToDoDialog(project){
-    console.log(project)
     const toDoSubmitBtn = document.querySelector("#submit-to-do-btn")
     toDoDialog.showModal()
-    console.log(project)
     toDoSubmitBtn.addEventListener("click", project.handleInput)
-    console.log(project)
+ 
     
 }
 
 export function handleToDoDialog(event, project){
     if(!event.defaultPrevented){
-        console.log("Project: ")
-        console.log(project)
         event.preventDefault()
         toDoDialog.close()  
-        console.log("dialog")
         project.addToDoToArray(project.createToDo(titleInput.value, describeInput.value, dateInput.value, priorityInput.value))
         displayProject(project)
     }
