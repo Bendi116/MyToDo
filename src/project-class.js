@@ -1,16 +1,31 @@
-import { displayProject } from "./dom-manipulate"
+import { displayProject ,expandAllToDOInsideProject} from "./dom-manipulate"
+import { ToDo } from "./to-do-class"
+import {showToDoDialog, handleToDoDialog} from "./dialog"
 export class Project{
 
     constructor(title){
         this.title = title
         this.toDoArray = []
     }
-    addToDo(toDo){
+    toDoAtIndex(index){
+        return this.toDoArray[index]
+    }
+
+    addToDoToArray(toDo){
         this.toDoArray.push(toDo)
+    }
+    addToDo = () => {
+        console.log("Inside Project: ")
+        console.log(this)
+        showToDoDialog(this)
+    }
+    createToDo(title,desc,date,priority){
+        return new ToDo(title,desc,date,priority)
     }
     expand(){
     }
-    seeAll(){
+    seeAll=()=>{
+        expandAllToDOInsideProject(this)
     }
     delToDo = (e) =>{
         this.toDoArray.forEach(todo => {
@@ -19,6 +34,14 @@ export class Project{
             }
         });
         displayProject(this)
-        
+    }
+    delete = (e) =>{
+        this.delete
+        e.target.parentElement.parentElement.remove()
+    }
+    handleInput=(e)=>{
+        console.log("inside2:")
+        console.log(this)
+        handleToDoDialog(e, this)
     }
 }

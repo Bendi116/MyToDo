@@ -1,10 +1,38 @@
-.to-do{
-    border: 1px solid black;
-    display: flex;
-
+body{
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 30px auto 1fr 30px;
 }
+
+
+
 .project{
     border: 1px solid blue;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr 6fr;
+}
+.project-container{
+    grid-column: 1/-1;
+}
+.project-btn-container{
+    grid-column: 2;
+    grid-row: 1;
+}
+
+
+.to-do{
+    padding-left: 1rem;
+    display: flex;
+}
+.to-do-content{
+    width: 20rem;
+    height: 3rem;
+    border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    pad: 4px;
 }
 
 .to-do button{
@@ -14,24 +42,39 @@
     height: 40px;
 }
 
-body{
-height: 100vh;
-display: grid;
-grid-template-rows: 30px auto 1fr 30px;
-}
-
-.project{
-    display: grid;
-    grid-template-columns: 1fr auto;
-}
-.project-container{
-    grid-column: 1/-1;
-}
-
-.to-do:hover{
-    background-color: red;
+.to-do .expand-btn{
+    border-radius: 30px;
+    background-color: rgb(169, 214, 214);
+    width: 20px;
+    height: 20px;
 }
 
 .btn-container{
     visibility: hidden;
+}
+.to-do:hover .btn-container{
+    visibility: inherit;
+}
+
+.expand{
+    border: 1px solid red;
+    width: 20rem;
+    height: 7rem;
+
+    display: grid;
+    grid-template-rows: 35% auto;
+}
+
+.expand  .title,.due-date,.expand-btn{
+    grid-row: 1;
+    align-self: center;
+}
+.to-do-desc{
+    grid-row: 2;
+}
+
+.expand ~ .btn-container{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
 }

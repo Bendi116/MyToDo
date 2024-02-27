@@ -8,7 +8,45 @@
 <body>
     <header>ToDoHeader</header>
     <h1>MyToDo</h1>
-    <div class="main-container"></div>
+    
+
+    <dialog id="to-do-dialog">
+        <form action="" method="">
+            <label for="title-input">Your ToDO's title:</label>
+            <input type="text" id="title-input" placeholder="go shopping" name="title">
+
+            <label for="describe-input">Describe your ToDo's:</label>
+            <textarea name="describe" id="describe-input" cols="30" rows="10" placeholder="Went to shopping center and ..."></textarea>
+
+            <label for="date-input">Pick your due date:</label>
+            <input type="date" id="date-input" name="date">
+
+
+            <label for="priority-input">Choose your ToDo's priority</label>
+            <select name="priority" id="priority-input">
+                <option value="high">High</option>
+                <option value="medium" selected>medium</option>
+                <option value="low">Low</option>
+            </select>
+
+
+            <button formmethod="dialog">Close</button>
+            <button type="submit" id="submit-to-do-btn">Add</button>
+        </form>
+    </dialog>
+    <dialog id="project-dialog">
+        <form action="" method="">
+            <label for="project-title"></label>
+            <input type="text" id="project-title">
+
+            <button formmethod="dialog">Close</button>
+            <button type="submit" id="submit-project-btn">Add</button>
+        </form>
+    </dialog>
+
+    <div class="main-container">
+        <button id="add-project">Add project</button>
+    </div>
     <footer>ToDOFotter</footer>
 
     
