@@ -22,8 +22,8 @@ export function showProjectDialog(){
         e.preventDefault()
         const newProject = new Project(projectTitleInput.value)
         projectArray.push(newProject)
-        console.log(projectArray)
         displayProject(newProject)
+        projectTitleInput.value=""
         projectDialog.close()
     },once
     )

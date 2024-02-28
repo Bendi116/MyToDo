@@ -1,4 +1,4 @@
-import { refreshProject ,expandAllToDOInsideProject,addEventExpendTSeeAllBtn} from "./dom-manipulate"
+import { refreshProject ,expandAllToDOInsideProject,addEventExpendTSeeAllBtn,removeOptionFromProjectSelection} from "./dom-manipulate"
 import { ToDo } from "./to-do-class"
 import {showToDoDialog, handleToDoDialog} from "./dialog"
 export class Project{
@@ -41,6 +41,7 @@ export class Project{
         refreshProject(this)
     }
     delete = (e) =>{
+        removeOptionFromProjectSelection(this)
         this.delete
         e.target.parentElement.parentElement.remove()
     }

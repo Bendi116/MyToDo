@@ -4,7 +4,16 @@ body{
     grid-template-rows: 30px auto 1fr 30px;
 }
 
+.hero-container{
+    display: flex;
+}
 
+#project-select{
+    width: 6rem;
+    height: 3rem;
+    margin: 0;
+    padding: 0;
+}
 
 .project{
     border: 1px solid blue;

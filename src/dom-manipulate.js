@@ -3,7 +3,7 @@ import {format} from "date-fns"
 
 export function displayProject(project){
     //const
-    const mainContainer = document.querySelector(".main-container")
+    const mainProjectContainer = document.querySelector(".main-project-container")
     const  projectMainDiv = document.createElement("div")
    
     const projectHeader = document.createElement("div")
@@ -49,7 +49,13 @@ export function displayProject(project){
     projectMainDiv.appendChild(projectBtnDiv)
     projectMainDiv.appendChild(seeMoreBtn)
     
-    mainContainer.appendChild(projectMainDiv)
+    mainProjectContainer.appendChild(projectMainDiv)
+
+    if(!projectInSelection(project))
+    {
+        addOptionToProjectSelection(project)
+    }
+
     
 }
 
@@ -136,7 +142,23 @@ export function displayToDo(todo,project){
 
 }
 
+export function addOptionToProjectSelection(project){
+    const selection = document.querySelector("#project-select")
+    const newOption = document.createElement("option")
 
+    newOption.innerText = project.title
+    newOption.value = project.title
+
+    newOption.id = `option-${project.title}`
+    newOption.classList.add("project-option")
+
+    selection.appendChild(newOption)
+}
+export function removeOptionFromProjectSelection(project){
+    const currOption = document.querySelector(`#option-${project.title}`)
+  
+    currOption.remove()
+}
 
 export function expandToDo(todoHtml,todo){
     const describe = document.createElement("p")
@@ -169,4 +191,15 @@ export function toggleClass(node, className){
     node.classList.toggle(className)
 
 }
+function projectInSelection(project){
+    let options = document.querySelectorAll(".project-option");
+    options = Array.from(options)
 
+    for (let i = 0; i < options.length; i++) {
+        
+        if(options[i].value == project.title){
+            return true
+        }
+    }
+    return false
+}
