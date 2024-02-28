@@ -19,14 +19,14 @@
             <textarea name="describe" id="describe-input" cols="30" rows="10" placeholder="Went to shopping center and ..."></textarea>
 
             <label for="date-input">Pick your due date:</label>
-            <input type="date" id="date-input" name="date">
+            <input type="datetime-local" id="date-input" name="date">
 
 
             <label for="priority-input">Choose your ToDo's priority</label>
             <select name="priority" id="priority-input">
-                <option value="high">High</option>
-                <option value="medium" selected>medium</option>
-                <option value="low">Low</option>
+                <option value=1>High</option>
+                <option value=0 selected>medium</option>
+                <option value=-1>Low</option>
             </select>
 
 

@@ -35,6 +35,17 @@ body{
     pad: 4px;
 }
 
+.priority-1{
+    color: red;
+}
+.priority-0{
+    color: blue;
+}
+.priority--1{
+    color: yellow;
+}
+
+
 .to-do button{
     border-radius: 10px;
     background-color: aqua;

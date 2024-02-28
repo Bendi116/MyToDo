@@ -1,3 +1,5 @@
+import { toDoArraySort } from "./to-do-class"
+import {format} from "date-fns"
 
 export function displayProject(project){
     //const
@@ -11,7 +13,9 @@ export function displayProject(project){
     const projectBtnDiv = document.createElement("div")
     const seeMoreBtn = document.createElement("button")
 
-    //add todo div's
+    //sort and add todo div's
+    project.toDoArray = toDoArraySort(project.toDoArray)
+
     let treshold = project.toDoArray.length < 3 ? project.toDoArray.length : 3
     for (let i = 0; i < treshold ;i++) {
         projectContainer.appendChild(displayToDo(project.toDoAtIndex(i),project))
@@ -23,7 +27,7 @@ export function displayProject(project){
     projectMainDiv.classList.add("project")
     projectContainer.classList.add("project-container")
     projectBtnDiv.classList.add("project-btn-container")
-    seeMoreBtn.classList.add("seeMore")
+    seeMoreBtn.classList.add(`see-more-${project.title}`)
 
     //inner text
     projectHeader.innerText = project.title
@@ -34,7 +38,7 @@ export function displayProject(project){
     //add event listener
     projectAddToDoBtn.addEventListener("click", project.addToDo)
     projectDelBtn.addEventListener("click", project.delete)
-    seeMoreBtn.addEventListener("click", project.seeAll)
+    seeMoreBtn.addEventListener("click", project.seeAll, {once: true})
 
     //append childs
     projectBtnDiv.appendChild(projectDelBtn)
@@ -52,23 +56,32 @@ export function displayProject(project){
 export function refreshProject(project){
     const projectMainDiv = document.querySelector(`#project-${project.title}`)
     projectMainDiv.children[1].innerHTML = ""
-
+    project.toDoArray  = toDoArraySort(project.toDoArray)
     let treshold = project.toDoArray.length < 3 ? project.toDoArray.length : 3
     for (let i = 0; i < treshold ;i++) {
         projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
     }
+    if(project.expand){expandAllToDOInsideProject(project)}
+    
     
 }
 export function expandAllToDOInsideProject(project){
+    project.expand = true
     const projectMainDiv = document.querySelector(`#project-${project.title}`)
+    const seeMoreBtn = document.querySelector(`.see-more-${project.title}`)
 
-    console.log("project children")
+    seeMoreBtn.addEventListener("click", project.seeFew, {once: true})
+
     projectMainDiv.children[1].innerHTML = ""
-
+    toDoArraySort(project.toDoArray)
     project.toDoArray.forEach(todo => {
         projectMainDiv.children[1].appendChild(displayToDo(todo,project))
     });
-    console.log(project.toDoArray)
+}
+
+export function addEventExpendTSeeAllBtn(project){
+    const seeMoreBtn = document.querySelector(`.see-more-${project.title}`)
+    seeMoreBtn.addEventListener("click", project.seeAll, {once: true})
 }
 
 
@@ -85,10 +98,11 @@ export function displayToDo(todo,project){
 
     //set innerText
     title.innerText = todo.title
-    dueDate.innerText = todo.dueDate
+    dueDate.innerText = todo.dueDate?format(todo.dueDate,"y:L:d H:m"):""
     toDoCheckBtn.innerText = "Check"
     toDoDelBtn.innerText = "Del"
     expandBtn.innerText = "ˇ"
+    
 
     //add event listeners
     toDoCheckBtn.addEventListener("click", todo.setCheck)
@@ -103,6 +117,7 @@ export function displayToDo(todo,project){
     btnContainer.classList.add("btn-container")
     expandBtn.classList.add("expand-btn")
     toDoContent.classList.add("to-do-content")
+    toDoContent.classList.add(`priority-${todo.priority}`)
 
 
     //append childs 
