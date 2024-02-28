@@ -2,16 +2,8 @@
 export function displayProject(project){
     //const
     const mainContainer = document.querySelector(".main-container")
-    let projectMainDiv;
-    let hasExit = false
-    if(document.querySelector(`#project-${project.title}`)){
-        projectMainDiv = document.querySelector(`#project-${project.title}`)
-        projectMainDiv.innerHTML = "";
-        hasExit = true
-    }
-    else{
-        projectMainDiv = document.createElement("div")
-    }
+    const  projectMainDiv = document.createElement("div")
+   
     const projectHeader = document.createElement("div")
     const projectContainer = document.createElement("div")
     const projectAddToDoBtn = document.createElement("button")
@@ -40,8 +32,6 @@ export function displayProject(project){
     seeMoreBtn.innerText = "--- See More ---"
 
     //add event listener
-    console.log("Inside display")
-    console.log(project)
     projectAddToDoBtn.addEventListener("click", project.addToDo)
     projectDelBtn.addEventListener("click", project.delete)
     seeMoreBtn.addEventListener("click", project.seeAll)
@@ -54,9 +44,20 @@ export function displayProject(project){
     projectMainDiv.appendChild(projectContainer)
     projectMainDiv.appendChild(projectBtnDiv)
     projectMainDiv.appendChild(seeMoreBtn)
-    if(!hasExit){
-        mainContainer.appendChild(projectMainDiv)
+    
+    mainContainer.appendChild(projectMainDiv)
+    
+}
+
+export function refreshProject(project){
+    const projectMainDiv = document.querySelector(`#project-${project.title}`)
+    projectMainDiv.children[1].innerHTML = ""
+
+    let treshold = project.toDoArray.length < 3 ? project.toDoArray.length : 3
+    for (let i = 0; i < treshold ;i++) {
+        projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
     }
+    
 }
 export function expandAllToDOInsideProject(project){
     const projectMainDiv = document.querySelector(`#project-${project.title}`)

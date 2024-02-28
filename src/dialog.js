@@ -1,5 +1,4 @@
-import { ProvidePlugin } from "webpack"
-import { displayProject, displayProjects } from "./dom-manipulate"
+import { displayProject, refreshProject } from "./dom-manipulate"
 import { Project } from "./project-class"
 
 const toDoDialog = document.querySelector("#to-do-dialog")
@@ -24,18 +23,30 @@ export function showProjectDialog(){
 
 }
 export function showToDoDialog(project){
+    const once = {
+        once: true,
+      };
     const toDoSubmitBtn = document.querySelector("#submit-to-do-btn")
     toDoDialog.showModal()
-    toDoSubmitBtn.addEventListener("click", project.handleInput)
+    console.log("Before event listener:")
+    console.log(project.title)
+    toDoSubmitBtn.addEventListener("click", project.handleInput, once)
  
     
 }
 
 export function handleToDoDialog(event, project){
-    if(!event.defaultPrevented){
-        event.preventDefault()
-        toDoDialog.close()  
-        project.addToDoToArray(project.createToDo(titleInput.value, describeInput.value, dateInput.value, priorityInput.value))
-        displayProject(project)
-    }
+    
+    event.preventDefault() 
+    project.addToDoToArray(project.createToDo(titleInput.value, describeInput.value, dateInput.value, priorityInput.value))
+    refreshProject(project)
+    clearToDoDialog()
+    toDoDialog.close() 
+    
+}
+
+function clearToDoDialog(){
+    titleInput.value = ""
+    describeInput.value = ""
+    dateInput.value = ""
 }

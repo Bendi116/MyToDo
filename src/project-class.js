@@ -1,4 +1,4 @@
-import { displayProject ,expandAllToDOInsideProject} from "./dom-manipulate"
+import { refreshProject ,expandAllToDOInsideProject} from "./dom-manipulate"
 import { ToDo } from "./to-do-class"
 import {showToDoDialog, handleToDoDialog} from "./dialog"
 export class Project{
@@ -15,8 +15,8 @@ export class Project{
         this.toDoArray.push(toDo)
     }
     addToDo = () => {
-        console.log("Inside Project: ")
-        console.log(this)
+        console.log("Add to do")
+        console.log(this.title)
         showToDoDialog(this)
     }
     createToDo(title,desc,date,priority){
@@ -33,15 +33,15 @@ export class Project{
                this.toDoArray.splice(this.toDoArray.indexOf(todo),1)
             }
         });
-        displayProject(this)
+        refreshProject(this)
     }
     delete = (e) =>{
         this.delete
         e.target.parentElement.parentElement.remove()
     }
     handleInput=(e)=>{
-        console.log("inside2:")
-        console.log(this)
+        console.log("inside:")
+        console.log(this.title)
         handleToDoDialog(e, this)
     }
 }
