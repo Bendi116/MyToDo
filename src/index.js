@@ -3,12 +3,14 @@ import {ToDo} from './to-do-class'
 import { displayProject} from './dom-manipulate'
 import './style.css'
 import { showProjectDialog } from './dialog'
-import { handleProjectSelection } from './selection-handlerer'
+import { handleProjectSelection ,handleToDoCheckedSelection,handleToDoPrioritySelection} from './selection-handlerer'
 
 
 
 const addProjectBtn = document.querySelector("#add-project")
 const projectSelector = document.querySelector("#project-select")
+const toDoCheckedSelector = document.querySelector("#to-do-checked-select")
+const toDoPrioritySelector = document.querySelector("#to-do-priority-select")
 
 
 export const projectArray = []
@@ -26,6 +28,8 @@ const myTodo3 = new ToDo("task3","do task3",(new Date('1993')),0);
 
 addProjectBtn.addEventListener("click", showProjectDialog)
 projectSelector.addEventListener("change",handleProjectSelection)
+//toDoCheckedSelector.addEventListener("change",handleToDoCheckedSelection)
+//toDoPrioritySelector.addEventListener("change",handleToDoPrioritySelection)
 
 myProject.addToDoToArray(myTodo1)
 myProject.addToDoToArray(myTodo2)

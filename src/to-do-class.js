@@ -19,7 +19,7 @@ export class ToDo{
         else{
             setOpacity(e.target.parentElement.parentElement.children[0],1)
         }
-        toggleClass(e.target.parentElement.parentElement,"checked")
+        toggleClass(e.target.parentElement.parentElement.children[0],"checked")
     }
     expand = (e) => {
         this.collapse = !this.collapse

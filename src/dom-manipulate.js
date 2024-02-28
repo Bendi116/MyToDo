@@ -1,6 +1,16 @@
 import { toDoArraySort } from "./to-do-class"
 import {format} from "date-fns"
 
+//logic variables
+export let toDochecked = false;
+export let toDounchecked = false;
+
+let high = false
+let medium = false
+let low = false
+
+
+
 export function displayProject(project){
     //const
     const mainProjectContainer = document.querySelector(".main-project-container")
@@ -64,13 +74,23 @@ export function refreshProject(project){
     projectMainDiv.children[1].innerHTML = ""
     project.toDoArray  = toDoArraySort(project.toDoArray)
     let treshold = project.toDoArray.length < 3 ? project.toDoArray.length : 3
-    for (let i = 0; i < treshold ;i++) {
+    let i =0
+    while(i<treshold){
+        if(checked){
+            console.log("cheked")
+        }
         projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
+        i++;
     }
-    if(project.expand){expandAllToDOInsideProject(project)}
     
+        
     
+    if(project.expand){expandAllToDOInsideProject(project)}        
 }
+
+
+
+
 export function expandAllToDOInsideProject(project){
     project.expand = true
     const projectMainDiv = document.querySelector(`#project-${project.title}`)
