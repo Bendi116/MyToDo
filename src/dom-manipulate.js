@@ -1,14 +1,25 @@
-import { toDoArraySort } from "./to-do-class"
+import { toDoArraySort, } from "./to-do-class"
 import {format} from "date-fns"
+import {fromNodeElementGetTodo} from "./project-class"
 
 //logic variables
-export let toDochecked = false;
-export let toDounchecked = false;
+let toDoChecked = false;
+let toDoUnChecked = false;
 
-let high = false
-let medium = false
-let low = false
+let toDoHigh = false
+let toDoMedium = false
+let toDoLow = false
 
+export function adjustChecked(bool1,bool2){
+    toDoChecked = bool1
+    toDoUnChecked = bool2
+}
+
+export function adjustPriority(bool1,bool2,bool3){
+    toDoHigh = bool1
+    toDoMedium = bool2
+    toDoLow = bool3
+}
 
 
 export function displayProject(project){
@@ -30,7 +41,7 @@ export function displayProject(project){
     for (let i = 0; i < treshold ;i++) {
         projectContainer.appendChild(displayToDo(project.toDoAtIndex(i),project))
     }
-   
+    
 
     //add id and class
     projectMainDiv.id = `project-${project.title}`
@@ -76,18 +87,36 @@ export function refreshProject(project){
     let treshold = project.toDoArray.length < 3 ? project.toDoArray.length : 3
     let i =0
     while(i<treshold){
-        if(checked){
-            console.log("cheked")
+        if(toDoChecked){
+            if(project.toDoAtIndex(i).check){
+                projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
+            }
         }
-        projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
+        else if(toDoUnChecked){
+            if(!project.toDoAtIndex(i).check){
+                projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
+            }
+        }
+
+        else{
+            projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
+            
+        }
+
         i++;
+        
     }
     
-        
+    const toDosArray =Array.from(projectMainDiv.children[1].children)
+    toDosArray.forEach(toDoNode=>{
+        let todo = project.fromNodeElementGetTodo(toDoNode)
+        if(todo.check){
+            toggleClass(toDoNode,"checked")
+        }
+    })
     
     if(project.expand){expandAllToDOInsideProject(project)}        
 }
-
 
 
 
@@ -101,8 +130,27 @@ export function expandAllToDOInsideProject(project){
     projectMainDiv.children[1].innerHTML = ""
     toDoArraySort(project.toDoArray)
     project.toDoArray.forEach(todo => {
-        projectMainDiv.children[1].appendChild(displayToDo(todo,project))
+        if(toDoChecked){
+            if(todo.check){
+                projectMainDiv.children[1].appendChild(displayToDo(todo,project))
+            }} 
+        else if(toDoUnChecked){
+            if(!todo.check){
+                projectMainDiv.children[1].appendChild(displayToDo(todo,project))
+            }
+            }
+        else{
+            projectMainDiv.children[1].appendChild(displayToDo(todo,project))
+            }
+          
     });
+    const toDosArray =Array.from(projectMainDiv.children[1].children)
+    toDosArray.forEach(toDoNode=>{
+        let todo = project.fromNodeElementGetTodo(toDoNode)
+        if(todo.check){
+            toggleClass(toDoNode,"checked")
+        }
+    })
 }
 
 export function addEventExpendTSeeAllBtn(project){
@@ -145,6 +193,9 @@ export function displayToDo(todo,project){
     toDoContent.classList.add("to-do-content")
     toDoContent.classList.add(`priority-${todo.priority}`)
 
+    
+
+    
 
     //append childs 
     toDoContent.appendChild(title)

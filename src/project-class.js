@@ -11,6 +11,15 @@ export class Project{
     toDoAtIndex(index){
         return this.toDoArray[index]
     }
+    fromNodeElementGetTodo(node){
+        let todo;
+        this.toDoArray.forEach(element => {
+            if(element.title == node.id){
+                todo = element
+            }
+        });
+        return todo
+    }
 
     addToDoToArray(toDo){
         this.toDoArray.push(toDo)

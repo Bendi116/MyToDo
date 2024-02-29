@@ -28,7 +28,7 @@ const myTodo3 = new ToDo("task3","do task3",(new Date('1993')),0);
 
 addProjectBtn.addEventListener("click", showProjectDialog)
 projectSelector.addEventListener("change",handleProjectSelection)
-//toDoCheckedSelector.addEventListener("change",handleToDoCheckedSelection)
+toDoCheckedSelector.addEventListener("change",handleToDoCheckedSelection)
 //toDoPrioritySelector.addEventListener("change",handleToDoPrioritySelection)
 
 myProject.addToDoToArray(myTodo1)

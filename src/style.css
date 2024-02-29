@@ -43,6 +43,9 @@ body{
     align-items: center;
     pad: 4px;
 }
+.checked{
+    opacity: 0.4;
+}
 
 .priority-1{
     color: red;

@@ -1,6 +1,6 @@
-import exp from "constants";
 import { projectArray } from ".";
-import { displayProject ,removeOptionFromProjectSelection,refreshProject, toDochecked, toDounchecked} from "./dom-manipulate";
+import { displayProject ,removeOptionFromProjectSelection,refreshProject, adjustChecked,adjustPriority} from "./dom-manipulate";
+export let allSelected = true
 
 export function handleProjectSelection(e){
     const mainProjectContainer = document.querySelector(".main-project-container")
@@ -14,6 +14,7 @@ export function handleProjectSelection(e){
         if (options[i].selected) {
             if(options[i].value == "all"){
                 projectArray.forEach(project => {
+                    allSelected = true
                     removeOptionFromProjectSelection(project)
                     displayProject(project)
                 });
@@ -21,6 +22,7 @@ export function handleProjectSelection(e){
             else{
                 projectArray.forEach(project => {
                     if(options[i].value==project.title){
+                        allSelected = false
                         displayProject(project)
                     }
                 });
@@ -36,26 +38,22 @@ export function handleProjectSelection(e){
 export function handleToDoCheckedSelection(e){
     let options = document.querySelectorAll(".to-do-checked-option");
     options = Array.from(options)
-
     for (let i = 0; i < options.length; i++) {
         if(options[i].selected){
             if(options[i].value == "all"){
-                toDochecked = false
-                toDounchecked = false
-                projectArray.forEach(project=>{
-                    refreshProject(project)
-                })
+                adjustChecked(false,false)
             }else if(options[i].value == "checked"){
-                toDochecked = true
-                toDounchecked = false
+                adjustChecked(true,false)
             }
             else if(options[i].value == "unchecked"){
-                toDounchecked = true
-                toDochecked = false
+                adjustChecked(false,true)
             }
         }
         
     }
+    projectArray.forEach(project=>{
+        refreshProject(project)
+    })
 }
 
 export function handleToDoPrioritySelection(e){
@@ -64,7 +62,17 @@ export function handleToDoPrioritySelection(e){
 
     for (let i = 0; i < options.length; i++) {
         if(options[i].selected){
-            console.log(options[i])
+            if(options[i].value == "all"){
+                adjustPriority(false,false,false)
+            }else if(options[i].value == "high"){
+                adjustPriority(true,false,false)
+            }
+            else if(options[i].value == "medium"){
+                adjustPriority(false,true,false)
+            }
+            else if(options[i].value == "low"){
+                adjustPriority(false,false,true)
+            }
         }
         
     }

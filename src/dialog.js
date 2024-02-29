@@ -1,6 +1,7 @@
-import { displayProject, refreshProject } from "./dom-manipulate"
+import { displayProject, refreshProject,addOptionToProjectSelection } from "./dom-manipulate"
 import { Project } from "./project-class"
 import { projectArray } from "."
+import { allSelected } from "./selection-handlerer"
 
 
 const toDoDialog = document.querySelector("#to-do-dialog")
@@ -22,7 +23,8 @@ export function showProjectDialog(){
         e.preventDefault()
         const newProject = new Project(projectTitleInput.value)
         projectArray.push(newProject)
-        displayProject(newProject)
+        if (allSelected){displayProject(newProject)}
+        else{addOptionToProjectSelection(newProject)}
         projectTitleInput.value=""
         projectDialog.close()
     },once

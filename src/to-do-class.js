@@ -13,12 +13,12 @@ export class ToDo{
     }
     setCheck = (e) => {
         this.check = !this.check
-        if(this.check){
-            setOpacity(e.target.parentElement.parentElement.children[0],0.4)
-        }
-        else{
-            setOpacity(e.target.parentElement.parentElement.children[0],1)
-        }
+        // if(this.check){
+        //     setOpacity(e.target.parentElement.parentElement.children[0],0.4)
+        // }
+        // else{
+        //     setOpacity(e.target.parentElement.parentElement.children[0],1)
+        // }
         toggleClass(e.target.parentElement.parentElement.children[0],"checked")
     }
     expand = (e) => {
