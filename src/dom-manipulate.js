@@ -85,33 +85,60 @@ export function refreshProject(project){
     projectMainDiv.children[1].innerHTML = ""
     project.toDoArray  = toDoArraySort(project.toDoArray)
     let treshold = project.toDoArray.length < 3 ? project.toDoArray.length : 3
-    let i =0
-    while(i<treshold){
-        if(toDoChecked){
-            if(project.toDoAtIndex(i).check){
-                projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
-            }
-        }
-        else if(toDoUnChecked){
-            if(!project.toDoAtIndex(i).check){
-                projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
-            }
-        }
+    let i = 0
+    // while(i<treshold){
+    //     if(toDoChecked){
+    //         if(project.toDoAtIndex(i).check){
+    //             projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
+    //         }
+    //     }
+    //     else if(toDoUnChecked){
+    //         if(!project.toDoAtIndex(i).check){
+    //             projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
+    //         }
+    //     }
 
-        else{
-            projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
+    //     else{
+    //         projectMainDiv.children[1].appendChild(displayToDo(project.toDoAtIndex(i),project))
             
-        }
+    //     }
 
-        i++;
+    //     i++;
         
-    }
+    // }
+    let canAdd = true
+    project.toDoArray.forEach(todo=>{
+        if(canAdd){
+            if(toDoChecked){
+                if(todo.check){
+                    projectMainDiv.children[1].appendChild(displayToDo(todo,project))
+                    i++
+                }
+            }
+            else if(toDoUnChecked){
+                if(!todo.check){
+                    projectMainDiv.children[1].appendChild(displayToDo(todo,project))
+                    i++
+                }
+            }
+    
+            else{
+                projectMainDiv.children[1].appendChild(displayToDo(todo,project))     
+                i++
+            }
+        }
+      
+        if(i>=treshold){
+            canAdd = false
+        }
+    })
+
     
     const toDosArray =Array.from(projectMainDiv.children[1].children)
     toDosArray.forEach(toDoNode=>{
         let todo = project.fromNodeElementGetTodo(toDoNode)
         if(todo.check){
-            toggleClass(toDoNode,"checked")
+            toggleClass(toDoNode.children[0],"checked")
         }
     })
     
@@ -148,7 +175,7 @@ export function expandAllToDOInsideProject(project){
     toDosArray.forEach(toDoNode=>{
         let todo = project.fromNodeElementGetTodo(toDoNode)
         if(todo.check){
-            toggleClass(toDoNode,"checked")
+            toggleClass(toDoNode.children[0],"checked")
         }
     })
 }
@@ -260,8 +287,12 @@ export function setOpacity(node, opacity){
 
 export function toggleClass(node, className){
     node.classList.toggle(className)
-
 }
+
+function addClass(node, className){
+    node.classList,add(className)
+}
+
 function projectInSelection(project){
     let options = document.querySelectorAll(".project-option");
     options = Array.from(options)

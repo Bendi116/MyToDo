@@ -1,6 +1,8 @@
 import { refreshProject ,expandAllToDOInsideProject,addEventExpendTSeeAllBtn,removeOptionFromProjectSelection} from "./dom-manipulate"
 import { ToDo } from "./to-do-class"
 import {showToDoDialog, handleToDoDialog} from "./dialog"
+import { projectArray } from "."
+
 export class Project{
 
     constructor(title){
@@ -38,7 +40,6 @@ export class Project{
     seeFew=()=>{
         this.expand = false
         addEventExpendTSeeAllBtn(this)
-        //const seeMoreBtn = document.querySelector(`.see-more-${project.title}`)
         refreshProject(this)
     }
     delToDo = (e) =>{
@@ -59,3 +60,15 @@ export class Project{
     }
 }
 
+export function fromNodeElemenetGetProject(node){
+    let _project
+    projectArray.forEach(project=>{
+        console.log(`#project-${project.title}`)
+        console.log(node.id)
+        if(`project-${project.title}` == node.id){
+            _project = project
+        }
+    })
+    
+    return _project
+}

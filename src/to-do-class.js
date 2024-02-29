@@ -1,4 +1,5 @@
-import { collapseToDo, expandToDo, setOpacity, toggleClass } from "./dom-manipulate";
+import { collapseToDo, expandToDo, toggleClass ,refreshProject} from "./dom-manipulate";
+import {fromNodeElemenetGetProject} from './project-class'
 import { isAfter } from "date-fns";
 
 export class ToDo{
@@ -13,13 +14,8 @@ export class ToDo{
     }
     setCheck = (e) => {
         this.check = !this.check
-        // if(this.check){
-        //     setOpacity(e.target.parentElement.parentElement.children[0],0.4)
-        // }
-        // else{
-        //     setOpacity(e.target.parentElement.parentElement.children[0],1)
-        // }
         toggleClass(e.target.parentElement.parentElement.children[0],"checked")
+        refreshProject(fromNodeElemenetGetProject(e.target.parentElement.parentElement.parentElement.parentElement))
     }
     expand = (e) => {
         this.collapse = !this.collapse
