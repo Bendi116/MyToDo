@@ -9,6 +9,7 @@ export class Project{
         this.title = title
         this.toDoArray = []
         this.expand = false
+        this.displayed = false
     }
     toDoAtIndex(index){
         return this.toDoArray[index]

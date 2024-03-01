@@ -2,7 +2,7 @@ import { projectArray } from ".";
 import { displayProject ,removeOptionFromProjectSelection,refreshProject, adjustChecked,adjustPriority} from "./dom-manipulate";
 export let allSelected = true
 
-export function handleProjectSelection(e){
+export function handleProjectSelection(){
     const mainProjectContainer = document.querySelector(".main-project-container")
     mainProjectContainer.innerHTML=""
 
@@ -17,6 +17,7 @@ export function handleProjectSelection(e){
                     allSelected = true
                     removeOptionFromProjectSelection(project)
                     displayProject(project)
+                    project.display = true
                 });
             }
             else{
@@ -24,6 +25,9 @@ export function handleProjectSelection(e){
                     if(options[i].value==project.title){
                         allSelected = false
                         displayProject(project)
+                        project.display = true
+                    }else{
+                        project.display = false
                     }
                 });
                 }    
@@ -35,7 +39,7 @@ export function handleProjectSelection(e){
 }
 
 
-export function handleToDoCheckedSelection(e){
+export function handleToDoCheckedSelection(){
     let options = document.querySelectorAll(".to-do-checked-option");
     options = Array.from(options)
     for (let i = 0; i < options.length; i++) {
@@ -52,11 +56,16 @@ export function handleToDoCheckedSelection(e){
         
     }
     projectArray.forEach(project=>{
-        refreshProject(project)
+        if(allSelected){
+            refreshProject(project)
+        }else if(project.display){
+            refreshProject(project)
+        }
+
     })
 }
 
-export function handleToDoPrioritySelection(e){
+export function handleToDoPrioritySelection(){
     let options = document.querySelectorAll(".to-do-priority-option");
     options = Array.from(options)
 
@@ -64,16 +73,18 @@ export function handleToDoPrioritySelection(e){
         if(options[i].selected){
             if(options[i].value == "all"){
                 adjustPriority(false,false,false)
-            }else if(options[i].value == "high"){
-                adjustPriority(true,false,false)
-            }
-            else if(options[i].value == "medium"){
-                adjustPriority(false,true,false)
-            }
-            else if(options[i].value == "low"){
-                adjustPriority(false,false,true)
-            }
+            }else if(options[i].value == "high"){adjustPriority(true,false,false)}
+            else if(options[i].value == "medium"){adjustPriority(false,true,false)}
+            else if(options[i].value == "low"){adjustPriority(false,false,true)}
         }
         
     }
+    projectArray.forEach(project=>{
+        if(allSelected){
+            refreshProject(project)
+        }else if(project.display){
+            refreshProject(project)
+        }
+
+    })
 }
