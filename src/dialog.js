@@ -1,5 +1,5 @@
 import { displayProject, refreshProject,addOptionToProjectSelection } from "./dom-manipulate"
-import { Project } from "./project-class"
+import { Project ,fromNodeElemenetGetProject} from "./project-class"
 import { projectArray } from "."
 import { allSelected } from "./selection-handlerer"
 
@@ -15,6 +15,8 @@ const once = {
 
 const projectDialog = document.querySelector("#project-dialog")
 const projectTitleInput = document.querySelector("#project-title")
+
+const toDoModDialog = document.querySelector("#to-do-mod-dialog")
 
 export function showProjectDialog(){
     const projectSubmitBtn = document.querySelector("#submit-project-btn")
@@ -35,21 +37,30 @@ export function showToDoDialog(project){
     
     const toDoSubmitBtn = document.querySelector("#submit-to-do-btn")
     toDoDialog.showModal()
-    console.log("Before event listener:")
-    console.log(project.title)
     toDoSubmitBtn.addEventListener("click", project.handleInput, once)
  
     
 }
 
 export function handleToDoDialog(event, project){
-    
     event.preventDefault() 
     project.addToDoToArray(project.createToDo(titleInput.value, describeInput.value,dateInput.value?new Date(dateInput.value):null, parseInt(priorityInput.value)))
     refreshProject(project)
     clearToDoDialog()
     toDoDialog.close() 
     
+}
+
+export function showToDoModifyDialog(e){
+    console.log(e.target.parentElement.parentElement)
+    let project = fromNodeElemenetGetProject(e.target.parentElement.parentElement.parentElement.parentElement)
+    const toDOModBtn = document.querySelector("#submit-to-do-mod-btn")
+    toDoModDialog.showModal()
+    toDOModBtn.addEventListener("click",(e)=>{
+        e.preventDefault()
+        projectDialog.close()
+    },once
+    )
 }
 
 function clearToDoDialog(){

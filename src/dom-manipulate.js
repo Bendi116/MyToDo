@@ -1,7 +1,6 @@
 import { toDoArraySort, } from "./to-do-class"
 import {format} from "date-fns"
-import {fromNodeElementGetTodo} from "./project-class"
-import{handleToDoCheckedSelection,handleToDoPrioritySelection} from "./selection-handlerer"
+import { showToDoModifyDialog } from "./dialog";
 //logic variables
 let toDoChecked = false;
 let toDoUnChecked = false;
@@ -236,12 +235,14 @@ export function displayToDo(todo,project){
     const dueDate = document.createElement("p")
     const btnContainer = document.createElement("div")
     const toDoCheckBtn = document.createElement("button")
+    const toDoModifyBtn = document.createElement("button")
     const toDoDelBtn = document.createElement("button")
     const expandBtn = document.createElement("button")
 
     //set innerText
     title.innerText = todo.title
     dueDate.innerText = todo.dueDate?format(todo.dueDate,"y:L:d H:m"):""
+    toDoModifyBtn.innerText = "Mod"
     toDoCheckBtn.innerText = "Check"
     toDoDelBtn.innerText = "Del"
     expandBtn.innerText = "ˇ"
@@ -249,6 +250,7 @@ export function displayToDo(todo,project){
 
     //add event listeners
     toDoCheckBtn.addEventListener("click", todo.setCheck)
+    toDoModifyBtn.addEventListener("click",showToDoModifyDialog)
     toDoDelBtn.addEventListener("click", project.delToDo)
     expandBtn.addEventListener("click", todo.expand)
 
@@ -258,6 +260,7 @@ export function displayToDo(todo,project){
     title.classList.add("title")
     dueDate.classList.add("due-date")
     btnContainer.classList.add("btn-container")
+    toDoModifyBtn.classList.add("modify-btn")
     expandBtn.classList.add("expand-btn")
     toDoContent.classList.add("to-do-content")
     toDoContent.classList.add(`priority-${todo.priority}`)
@@ -269,6 +272,7 @@ export function displayToDo(todo,project){
     //append childs 
     toDoContent.appendChild(title)
     toDoContent.appendChild(dueDate)
+    toDoContent.appendChild(toDoModifyBtn)
     toDoContent.appendChild(expandBtn)
 
     btnContainer.appendChild(toDoCheckBtn)
