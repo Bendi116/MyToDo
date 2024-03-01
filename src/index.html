@@ -62,19 +62,19 @@
     </dialog>
     <dialog id="to-do-mod-dialog">
         <form action="">
-            <p>Current Todo Title: </p>
+            <p id="title-mod-current-input">Current Todo Title: </p>
             <label for="title-mod-input">Your ToDO's title:</label>
             <input type="text" id="title-mod-input" name="title">
 
-            <p>Current Todo Desc: </p>
+            <p id="describe-mod-current-input">Current Todo Desc: </p>
             <label for="describe-mod-input">Describe your ToDo's:</label>
             <textarea name="describe" id="describe-mod-input" cols="30" rows="10" ></textarea>
 
-            <p>Current Todo Date: </p>
+            <p id="date-mod-current-input">Current Todo Date: </p>
             <label for="date-mod-input">Pick your due date:</label>
             <input type="datetime-local" id="date-mod-input" name="date">
 
-            <p>Current Todo priority: </p>
+            <p id="priority-mod-current-input">Current Todo priority: </p>
             <label for="priority-mod-input">Choose your ToDo's priority</label>
             <select name="priority" id="priority-mod-input">
                 <option value=1>High</option>
@@ -82,7 +82,7 @@
                 <option value=-1>Low</option>
             </select>
 
-            <button formmethod="dialog">Close</button>
+            <button formmethod="dialog" id="close-to-do-mod-btn">Close</button>
             <button type="submit" id="submit-to-do-mod-btn" form="to-do-mod-dialog">Add</button>
         </form>
         </form>
