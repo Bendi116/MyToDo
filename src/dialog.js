@@ -37,39 +37,46 @@ const submitToDoGlobalBtn = document.querySelector("#submit-to-do-global-btn")
 let globalProject
 
 export function showToDoGlobalDialog(){
+    globalProject = undefined
     projectGlobalInput.innerHTML = ""
-    let first = true
+
+    const selectedNone = document.createElement("option")
+    selectedNone.value = "none"
+    selectedNone.innerText = "none"
+    selectedNone.selected = true
+    projectGlobalInput.appendChild(selectedNone)
 
     projectArray.forEach(project=>{
         const option = document.createElement("option")
         option.innerText = project.title
         option.value = project.title
-        if(first){
-            option.selected = true
-            first = false
-        }
         projectGlobalInput.appendChild(option)
     })
-    Array.from(projectGlobalInput).forEach(option=>{
-        if(option.selected)
-        {globalProject = fromNameGetProject(option.value)
-         }
-    })
+    
 
     projectGlobalInput.addEventListener("change",getProject)
-    submitToDoGlobalBtn.addEventListener("click",globalProject.handleGlobalInput,once)
+    submitToDoGlobalBtn.addEventListener("click",alertHaveToSelect)
 
     toDoGlobalDialog.showModal()
     
     
 }
 function getProject(e){
-    submitToDoGlobalBtn.removeEventListener("click",globalProject.handleGlobalInput,once)
+    try{
+        submitToDoGlobalBtn.removeEventListener("click",globalProject.handleGlobalInput,once)
+    }catch{
+        
+    }
+    
     globalProject = fromNameGetProject(e.target.value)
     submitToDoGlobalBtn.addEventListener("click",globalProject.handleGlobalInput,once)
 }
 
-
+function alertHaveToSelect(){
+    if (globalProject == undefined){
+        alert("Please choose a project where you want to add your new To Do's.")
+    } 
+}
 
 export function showProjectDialog(){
     const projectSubmitBtn = document.querySelector("#submit-project-btn")
