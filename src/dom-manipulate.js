@@ -5,7 +5,7 @@ import { showToDoModifyDialog } from "./dialog";
 let toDoChecked = false;
 let toDoUnChecked = false;
 
-let priorityObject = {
+export let priorityObject = {
     "high":false,
     "medium":false,
     "low":false
@@ -38,12 +38,6 @@ export function displayProject(project){
 
     //sort and add todo div's
     project.toDoArray = toDoArraySort(project.toDoArray)
-
-    // let treshold = project.toDoArray.length < 3 ? project.toDoArray.length : 3
-    // for (let i = 0; i < treshold ;i++) {
-    //     projectContainer.appendChild(displayToDo(project.toDoAtIndex(i),project))
-    // }
-   
 
     //add id and class
     projectMainDiv.id = `project-${project.title}`

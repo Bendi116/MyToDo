@@ -1,5 +1,5 @@
-import { displayProject, refreshProject,addOptionToProjectSelection } from "./dom-manipulate"
-import { Project ,fromNodeElemenetGetProject} from "./project-class"
+import { displayProject, refreshProject,addOptionToProjectSelection,priorityObject } from "./dom-manipulate"
+import { Project ,fromNodeElemenetGetProject,fromNameGetProject} from "./project-class"
 import { projectArray } from "."
 import { allSelected } from "./selection-handlerer"
 import {format} from "date-fns"
@@ -26,6 +26,49 @@ const titleModInput = document.querySelector("#title-mod-input")
 const describeModInput = document.querySelector("#describe-mod-input")
 const dateModInput = document.querySelector("#date-mod-input")
 const priorityModInput = document.querySelector("#priority-mod-input")
+
+const toDoGlobalDialog = document.querySelector("#to-do-global-dialog")
+const projectGlobalInput = document.querySelector("#project-global-select")
+const titleGlobalInput = document.querySelector("#title-global-input")
+const describeGlobalInput = document.querySelector("#describe-global-input")
+const dateGlobalInput = document.querySelector("#date-global-input")
+const priorityGlobalInput = document.querySelector("#priority-global-input")
+const submitToDoGlobalBtn = document.querySelector("#submit-to-do-global-btn")
+let globalProject
+
+export function showToDoGlobalDialog(){
+    projectGlobalInput.innerHTML = ""
+    let first = true
+
+    projectArray.forEach(project=>{
+        const option = document.createElement("option")
+        option.innerText = project.title
+        option.value = project.title
+        if(first){
+            option.selected = true
+            first = false
+        }
+        projectGlobalInput.appendChild(option)
+    })
+    Array.from(projectGlobalInput).forEach(option=>{
+        if(option.selected)
+        {globalProject = fromNameGetProject(option.value)
+         }
+    })
+
+    projectGlobalInput.addEventListener("change",getProject)
+    submitToDoGlobalBtn.addEventListener("click",globalProject.handleGlobalInput,once)
+
+    toDoGlobalDialog.showModal()
+    
+    
+}
+function getProject(e){
+    submitToDoGlobalBtn.removeEventListener("click",globalProject.handleGlobalInput,once)
+    globalProject = fromNameGetProject(e.target.value)
+    submitToDoGlobalBtn.addEventListener("click",globalProject.handleGlobalInput,once)
+}
+
 
 
 export function showProjectDialog(){
@@ -60,6 +103,13 @@ export function handleToDoDialog(event, project){
     toDoDialog.close() 
     
 }
+export function handleToDoGlobalDialog(event,project){
+    event.preventDefault() 
+    project.addToDoToArray(project.createToDo(titleGlobalInput.value, describeGlobalInput.value,dateGlobalInput.value?new Date(dateGlobalInput.value):null, parseInt(priorityGlobalInput.value)))
+    refreshProject(project)
+    clearToDoGlobalDialog()
+    toDoGlobalDialog.close() 
+}
 
 export function showToDoModifyDialog(e){
     const toDOModBtn = document.querySelector("#submit-to-do-mod-btn")
@@ -71,25 +121,33 @@ export function showToDoModifyDialog(e){
     dateModCurrentInput.innerText += format(todo.priority,"y:L:d H:m")
     priorityModCurrentInput.innerText += todo.priority
 
+    titleModCurrentInput.innerText = "Current Todo Title: "
+    describeModCurrentInput.innerText ="Current Todo Desc: "
+    dateModCurrentInput.innerText = "Current Todo Date: "
+    priorityModCurrentInput.innerText = "Current Todo priority: "
 
+
+
+    titleModInput.value =""
+    describeModInput.value = ""
+    dateModInput.value = ""
+        
     titleModInput.placeholder = todo.title
     describeModInput.placeholder = todo.describe
     dateModInput.placeholder = format(todo.priority,"y:L:d H:m")
     priorityModInput.placeholder = todo.priority
 
-    
+    let modOptions = document.querySelectorAll('.mod-option')
+    modOptions = Array.from(modOptions)
+    modOptions.forEach(modOption=>{
+        if(modOption.value == todo.priority){
+            modOption.selected = true
+        }
+    }
+        )
 
     toDoModDialog.showModal()
-    toDoModCloseBtn.addEventListener("click",()=>{
-        titleModInput.value =""
-        describeModInput.value = "todo.describe"
-        dateModInput.value = undefined
-        priorityModInput.value = 0
-        titleModCurrentInput.innerText = "Current Todo Title: "
-        describeModCurrentInput.innerText ="Current Todo Desc: "
-        dateModCurrentInput.innerText = "Current Todo Date: "
-        priorityModCurrentInput.innerText = "Current Todo priority: "
-    })
+    
     toDOModBtn.addEventListener("click",(e)=>{
         e.preventDefault()
         if(titleModInput.value != ""){
@@ -98,23 +156,14 @@ export function showToDoModifyDialog(e){
         if(describeModInput.value != ""){
             todo.describe = describeModInput.value
         }
-        if(dateModInput.value != todo.dueDate){
+        if(dateModInput.value != ""){
             todo.dueDate = dateModInput.value
         }
-        if(priorityModInput.value != todo.priority){
-            todo.priority = priorityModInput.value
+        if(parseInt(priorityModInput.value)!= todo.priority){
+            todo.priority = parseInt(priorityModInput.value)
         }
         refreshProject(project)
        
-
-        titleModInput.value =""
-        describeModInput.value = "todo.describe"
-        dateModInput.value = undefined
-        priorityModInput.value = 0
-        titleModCurrentInput.innerText = "Current Todo Title: "
-        describeModCurrentInput.innerText ="Current Todo Desc: "
-        dateModCurrentInput.innerText = "Current Todo Date: "
-        priorityModCurrentInput.innerText = "Current Todo priority: "
         toDoModDialog.close()
     },once
     )
@@ -124,4 +173,10 @@ function clearToDoDialog(){
     titleInput.value = ""
     describeInput.value = ""
     dateInput.value = ""
+}
+
+function clearToDoGlobalDialog(){
+    titleGlobalInput.value = ""
+    describeGlobalInput.value = ""
+    dateGlobalInput.value =""
 }

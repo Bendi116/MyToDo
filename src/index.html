@@ -77,9 +77,9 @@
             <p id="priority-mod-current-input">Current Todo priority: </p>
             <label for="priority-mod-input">Choose your ToDo's priority</label>
             <select name="priority" id="priority-mod-input">
-                <option value=1>High</option>
-                <option value=0 selected>Medium</option>
-                <option value=-1>Low</option>
+                <option value=1 class="mod-option">High</option>
+                <option value=0 selected class="mod-option">Medium</option>
+                <option value=-1 class="mod-option">Low</option>
             </select>
 
             <button formmethod="dialog" id="close-to-do-mod-btn">Close</button>
@@ -88,8 +88,37 @@
         </form>
     </dialog>
 
+    <dialog id="to-do-global-dialog">
+        <form action="" method="">
+
+            <label for="project-global-select">Choose your parent project's: </label>
+            <select name="project" id="project-global-select"></select>
+
+            <label for="title-global-input">Your ToDO's title:</label>
+            <input type="text" id="title-global-input" placeholder="go shopping" name="title">
+
+            <label for="describe-global-input">Describe your ToDo's:</label>
+            <textarea name="describe" id="describe-global-input" cols="30" rows="10" placeholder="Went to shopping center and ..."></textarea>
+
+            <label for="date-global-input">Pick your due date:</label>
+            <input type="datetime-local" id="date-global-input" name="date">
+
+
+            <label for="priority-global-input">Choose your ToDo's priority</label>
+            <select name="priority" id="priority-global-input">
+                <option value=1>High</option>
+                <option value=0 selected>Medium</option>
+                <option value=-1>Low</option>
+            </select>
+
+            <button formmethod="dialog">Close</button>
+            <button type="submit" id="submit-to-do-global-btn" form="to-do-global-dialog">Add</button>
+        </form>
+    </dialog>
+
     <div class="main-container">
         <button id="add-project">Add project</button>
+        <button id="add-to-do-global">Add To DO</button>
         <div class="main-project-container">
 
         </div>

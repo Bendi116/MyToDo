@@ -2,12 +2,13 @@ import {Project} from './project-class'
 import {ToDo} from './to-do-class'
 import { displayProject} from './dom-manipulate'
 import './style.css'
-import { showProjectDialog } from './dialog'
+import { showProjectDialog,showToDoGlobalDialog } from './dialog'
 import { handleProjectSelection ,handleToDoCheckedSelection,handleToDoPrioritySelection} from './selection-handlerer'
 
 
 
 const addProjectBtn = document.querySelector("#add-project")
+const addToDoBtn = document.querySelector("#add-to-do-global")
 const projectSelector = document.querySelector("#project-select")
 const toDoCheckedSelector = document.querySelector("#to-do-checked-select")
 const toDoPrioritySelector = document.querySelector("#to-do-priority-select")
@@ -27,6 +28,7 @@ const myTodo3 = new ToDo("task3","do task3",(new Date('1993')),0);
 
 
 addProjectBtn.addEventListener("click", showProjectDialog)
+addToDoBtn.addEventListener("click",showToDoGlobalDialog)
 projectSelector.addEventListener("change",handleProjectSelection)
 toDoCheckedSelector.addEventListener("change",handleToDoCheckedSelection)
 toDoPrioritySelector.addEventListener("change",handleToDoPrioritySelection)

@@ -1,6 +1,6 @@
 import { refreshProject ,expandAllToDOInsideProject,addEventExpendTSeeAllBtn,removeOptionFromProjectSelection} from "./dom-manipulate"
 import { ToDo } from "./to-do-class"
-import {showToDoDialog, handleToDoDialog} from "./dialog"
+import {showToDoDialog, handleToDoDialog,handleToDoGlobalDialog} from "./dialog"
 import { projectArray } from "."
 
 export class Project{
@@ -59,14 +59,26 @@ export class Project{
     handleInput=(e)=>{
         handleToDoDialog(e, this)
     }
+    handleGlobalInput=(e)=>{
+        handleToDoGlobalDialog(e, this)
+    }
 }
 
 export function fromNodeElemenetGetProject(node){
     let _project
     projectArray.forEach(project=>{
-        console.log(`#project-${project.title}`)
-        console.log(node.id)
         if(`project-${project.title}` == node.id){
+            _project = project
+        }
+    })
+    
+    return _project
+}
+
+export function fromNameGetProject(name){
+    let _project
+    projectArray.forEach(project=>{
+        if(project.title == name){
             _project = project
         }
     })
