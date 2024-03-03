@@ -42,14 +42,16 @@ export function displayProject(project){
     //add id and class
     projectMainDiv.id = `project-${project.title}`
     projectMainDiv.classList.add("project")
+    projectHeader.classList.add("project-header")
     projectContainer.classList.add("project-container")
     projectBtnDiv.classList.add("project-btn-container")
     seeMoreBtn.classList.add(`see-more-${project.title}`)
+    seeMoreBtn.classList.add(`see-more-btn`)
 
     //inner text
     projectHeader.innerText = project.title
     projectAddToDoBtn.innerText = "Add"
-    projectDelBtn.innerText = "Del"
+    projectDelBtn.innerText = "Delete"
     seeMoreBtn.innerText = "--- See More ---"
 
     //add event listener
@@ -194,7 +196,10 @@ export function expandAllToDOInsideProject(project){
     const projectMainDiv = document.querySelector(`#project-${project.title}`)
     const seeMoreBtn = document.querySelector(`.see-more-${project.title}`)
 
+
+
     seeMoreBtn.addEventListener("click", project.seeFew, {once: true})
+    seeMoreBtn.innerText = "---See Less---"
 
     projectMainDiv.children[1].innerHTML = ""
     toDoArraySort(project.toDoArray)
@@ -218,6 +223,7 @@ export function expandAllToDOInsideProject(project){
 
 export function addEventExpendTSeeAllBtn(project){
     const seeMoreBtn = document.querySelector(`.see-more-${project.title}`)
+    seeMoreBtn.innerText = "---See More---"
     seeMoreBtn.addEventListener("click", project.seeAll, {once: true})
 }
 

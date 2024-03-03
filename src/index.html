@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>MyToDo's App</title>
 </head>
 <body>
-    <header>ToDoHeader</header>
+    <header></header>
     <div class="hero-container">
-        <h1>MyToDo</h1>
-        <select name="project-select" id="project-select">
-            <option value="all" class="project-option">All</option>
-        </select>
-        <select name="to-do-checked-select" id="to-do-checked-select">
-            <option value="all" class="to-do-checked-option">All</option>
-            <option value="checked" class="to-do-checked-option">Checked</option>
-            <option value="unchecked" class="to-do-checked-option">Unchecked</option>
-        </select>
-        <select name="to-do-priority-select" id="to-do-priority-select">
-            <option value="all" class="to-do-priority-option">All</option>
-            <option value="high" class="to-do-priority-option">High</option>
-            <option value="medium" class="to-do-priority-option">Medium</option>
-            <option value="low" class="to-do-priority-option">Low</option>
-        </select>
+        <h1>MyToDO's App</h1>
+        <div class="select-wrapper">
+            <select name="project-select" id="project-select">
+                <option value="all" class="project-option">All</option>
+            </select>
+            <select name="to-do-checked-select" id="to-do-checked-select">
+                <option value="all" class="to-do-checked-option">All</option>
+                <option value="checked" class="to-do-checked-option">Checked</option>
+                <option value="unchecked" class="to-do-checked-option">Unchecked</option>
+            </select>
+            <select name="to-do-priority-select" id="to-do-priority-select">
+                <option value="all" class="to-do-priority-option">All</option>
+                <option value="high" class="to-do-priority-option">High</option>
+                <option value="medium" class="to-do-priority-option">Medium</option>
+                <option value="low" class="to-do-priority-option">Low</option>
+            </select>
+        </div>
         
     </div>
    
@@ -117,13 +119,15 @@
     </dialog>
 
     <div class="main-container">
-        <button id="add-project">Add project</button>
-        <button id="add-to-do-global">Add To DO</button>
+        <div class="global-btns">
+            <button id="add-project">Add New Project</button>
+            <button id="add-to-do-global">Add New To Do's</button>
+        </div>
         <div class="main-project-container">
 
         </div>
     </div>
-    <footer>ToDOFotter</footer>
+    <footer>Created By Bendi116</footer>
 
     
 </body>
