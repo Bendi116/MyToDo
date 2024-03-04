@@ -1,6 +1,7 @@
 import { toDoArraySort, } from "./to-do-class"
 import {format} from "date-fns"
 import { showToDoModifyDialog } from "./dialog";
+import {setStorageForProject} from "./handleStorage"
 //logic variables
 let toDoChecked = false;
 let toDoUnChecked = false;
@@ -188,7 +189,8 @@ export function refreshProject(project){
     
     refreshToDoClass(projectMainDiv,project)
     
-    if(project.expand){expandAllToDOInsideProject(project)}        
+    if(project.expand){expandAllToDOInsideProject(project)}     
+    setStorageForProject(project)   
 }
 
 export function expandAllToDOInsideProject(project){

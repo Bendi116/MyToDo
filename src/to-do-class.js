@@ -4,13 +4,13 @@ import { isAfter } from "date-fns";
 
 export class ToDo{
     collapse = true;
-    check = false
 
-    constructor(title,describe,dueDate,priority){
+    constructor(title,describe,dueDate,priority,check=false){
         this.title = title
         this.describe = describe
         this.dueDate = dueDate 
         this.priority = priority
+        this.check = check
     }
     setCheck = (e) => {
         this.check = !this.check

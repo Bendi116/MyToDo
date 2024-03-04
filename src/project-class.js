@@ -2,6 +2,7 @@ import { refreshProject ,expandAllToDOInsideProject,addEventExpendTSeeAllBtn,rem
 import { ToDo } from "./to-do-class"
 import {showToDoDialog, handleToDoDialog,handleToDoGlobalDialog} from "./dialog"
 import { projectArray } from "."
+import {setStorageForProject,removeProjectFromLocalStorage} from "./handleStorage"
 
 export class Project{
 
@@ -30,8 +31,8 @@ export class Project{
     addToDo = () => {
         showToDoDialog(this)
     }
-    createToDo(title,desc,date,priority){
-        return new ToDo(title,desc,date,priority)
+    createToDo(title,desc,date,priority,check){
+        return new ToDo(title,desc,date,priority,check)
     }
     expand(){
     }
@@ -50,8 +51,10 @@ export class Project{
             }
         });
         refreshProject(this)
+        setStorageForProject(this)
     }
     delete = (e) =>{
+        removeProjectFromLocalStorage(this)
         removeOptionFromProjectSelection(this)
         this.delete
         e.target.parentElement.parentElement.remove()

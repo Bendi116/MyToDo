@@ -1,9 +1,9 @@
-import { displayProject, refreshProject,addOptionToProjectSelection,priorityObject } from "./dom-manipulate"
+import { displayProject, refreshProject,addOptionToProjectSelection } from "./dom-manipulate"
 import { Project ,fromNodeElemenetGetProject,fromNameGetProject} from "./project-class"
 import { projectArray } from "."
 import { allSelected } from "./selection-handlerer"
 import {format} from "date-fns"
-
+import {setStorageForProject} from "./handleStorage"
 
 const toDoDialog = document.querySelector("#to-do-dialog")
 const titleInput = document.querySelector("#title-input")
@@ -87,6 +87,7 @@ export function showProjectDialog(){
         projectArray.push(newProject)
         if (allSelected){displayProject(newProject)}
         else{addOptionToProjectSelection(newProject)}
+        setStorageForProject(newProject)
         projectTitleInput.value=""
         projectDialog.close()
     },once
