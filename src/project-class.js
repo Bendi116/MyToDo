@@ -58,6 +58,10 @@ export class Project{
         removeOptionFromProjectSelection(this)
         this.delete
         e.target.parentElement.parentElement.remove()
+        console.log(projectArray)
+        projectArray.splice(projectArray.indexOf(this),1)
+        console.log(projectArray)
+
     }
     handleInput=(e)=>{
         handleToDoDialog(e, this)
